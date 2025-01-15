@@ -1,0 +1,39 @@
+.wp-block-drupalmedia-drupal-media-entity {
+  &.expandable_image {
+    position: relative;
+  }
+}
+
+button.expand-indicator,
+button.enlarger_dialog_close {
+  --size: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: var(--size);
+  width: var(--size);
+  text-indent: -10000px;
+  border: none;
+  background-color: white;
+  background-image: url("./assets/close-svgrepo-com.svg");
+  background-size: var(--size);
+  background-repeat: no-repeat;
+}
+
+button.expand-indicator {
+  background-image: url("./assets/expand-svgrepo-com.svg");
+  left: 0;
+}
+
+dialog.image_enlarger {
+  position: relative;
+  padding: 0;
+  border-width: 1px;
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}

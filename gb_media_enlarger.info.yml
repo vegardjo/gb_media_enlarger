@@ -1,0 +1,12 @@
+name: Gutenberg Media Enlarger
+type: module
+description: Module to add media enlarger functionality to media block in Gutenberg.
+package: Gutenberg
+core_version_requirement: ^9.5 || ^10
+dependencies:
+  - gutenberg
+
+# Information added by Drupal.org packaging script on 2024-08-14
+version: '3.0.4'
+project: 'gutenberg'
+datestamp: 1723623227

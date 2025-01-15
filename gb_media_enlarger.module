@@ -1,0 +1,32 @@
+<?php
+
+use Drupal\media\Entity\Media;
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Hook_preprocess_block().
+ * Open a large version of the image if this is set on the Gutenberg block.
+ *
+ * @param $variables
+ *
+ * @return void
+ */
+function gb_media_enlarger_preprocess_gutenberg_block__drupalmedia__drupal_media_entity(&$variables) {
+  if (!empty($variables['block_attributes']['mediaEntityIds']) && !empty($variables['block_attributes']['isExpandable'])) {
+    $image_size = "wide";
+    $variables['#attached']['library'][] = 'gb_media_enlarger/enlarger';
+    $variables['attributes']['class'][] = 'expandable_image';
+
+    $media_id = $variables['block_attributes']['mediaEntityIds'][0];
+    $media = Media::load($media_id);
+
+    if ($media && $media->hasField('field_media_image')) {
+      $image_field = $media->get('field_media_image')->entity;
+
+      if ($image_field) {
+        $large_image_url = ImageStyle::load($image_size)->buildUrl($image_field->getFileUri());
+        $variables['large_image_url'] = $large_image_url;
+      }
+    }
+  }
+}
