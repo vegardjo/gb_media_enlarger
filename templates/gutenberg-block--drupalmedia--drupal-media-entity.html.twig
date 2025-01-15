@@ -16,19 +16,37 @@
  */
 #}
 
-file from my mustafa
 
-{{ dump(block_attributes)}}
-
-{% if block_attributes.caption %}
-<figure{{ attributes }}>
-  {{- block_content -}}
-  <figcaption>{{ block_attributes.caption }}</figcaption>
-</figure>
-{% else %}
-<div{{ attributes }}>
-  {{- block_content -}}
-</div>
+{% if block_attributes.className %}
+  {% set attributes = attributes.addClass(block_attributes.className) %}
 {% endif %}
 
+{% if block_attributes.caption %}
+  <figure{{ attributes }}>
+    {% if block_attributes.isExpandable %}
+      {{- block_content -}}
+      <button class="expand-indicator">Expand image</button>
 
+      <dialog class="image_enlarger">
+        <button class="enlarger_dialog_close">Close</button>
+        <img src="{{ large_image_url }}" alt="{{ block_attributes.caption }}" />
+      </dialog>
+    {% else %}
+      {{- block_content -}}
+    {% endif %}
+    <figcaption>{{ block_attributes.caption }}</figcaption>
+  </figure>
+{% else %}
+  <div{{ attributes }}>
+    {% if block_attributes.isExpandable %}
+      <button class="expand-indicator">Expand Image</button>
+      {{- block_content -}}
+      <dialog class="image_enlarger">
+        <button class="enlarger_dialog_close">Close</button>
+        <img src="{{ large_image_url }}" alt="{{ block_attributes.caption }}" />
+      </dialog>
+    {% else %}
+      {{- block_content -}}
+    {% endif %}
+  </div>
+{% endif %}
